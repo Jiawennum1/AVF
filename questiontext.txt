@@ -1,0 +1,21 @@
+
+1.lane detection
+Zunächst habe ich mich entschieden, um den Einfluss von Sonnenlicht zu minimieren, den HSV-Farbraum zu verwenden, um die Farben zu filtern. Dabei werden nur die weißen und gelben Pixel im Bild angezeigt. Diese Pixel werden einer Canny-Kantenerkennung unterzogen. Ich wähle dann einen interessanten Bereich aus, der typischerweise die untere Hälfte des Bildes ist und die Form eines Vielecks hat. Die Pixel in diesem Bereich werden einer weiteren Verarbeitung mit der Hough-Transformation unterzogen. Die resultierenden Pixel werden schließlich angepasst, um die linken und rechten Fahrspurlinien zu erzeugen.
+
+2. steer control
+Basierend auf den beiden erkannten Fahrspuren zeichne ich eine Mittellinie der Fahrspur. Dann finde ich den entsprechenden Mittelpunkt des Bildes. Anhand der Differenz zwischen diesen beiden Punkten verwende ich einen PI-Regler, um die Lenkung des Fahrzeugs zu steuern.
+(Wenn nur eine einzelne Fahrspurmarkierung erkannt wird, berechnet sich die Mittellinie der Fahrspur, indem die x-Koordinate der einseitigen Fahrspurmarkierung um die halbe Breite der Fahrspur addiert oder subtrahiert wird.)
+
+3.throttle control
+Das System berechnet zunächst die aktuelle Fahrzeuggeschwindigkeit und passt sie in die richtige Einheit um. Wenn der Abstand zum vorausfahrenden Fahrzeug kleiner als der Sicherheitsabstand ist, aktiviert es den adaptiven Tempomat. Der Timer wird gestoppt, um eine genaue Zeitmessung zu gewährleisten. Ein Zielabstand wird basierend auf der Geschwindigkeit festgelegt. Bei niedriger Geschwindigkeit ist dieser Abstand konstant.
+
+Der Fehler zwischen dem aktuellen Abstand und dem Zielabstand wird in proportionalen, integralen und differenziellen Anteil aufgeteilt. Diese Fehlerwerte werden genutzt, um die Geschwindigkeit des Fahrzeugs anzupassen, sodass der Abstand zum vorausfahrenden Fahrzeug optimal bleibt. Die Zielgeschwindigkeit wird dabei auf null begrenzt, um negative Werte zu verhindern.
+
+Wenn der Abstand zum vorausfahrenden Fahrzeug gering ist und die Geschwindigkeit niedrig ist, wird der Integralfehler reduziert, um langsames Rollen zu vermeiden. Fehlen aktuelle Abstandsdaten, wird der Tempomat-Modus zurückgesetzt, um die kontinuierliche Datenverarbeitung sicherzustellen.
+
+Eine weitere Funktion passt die Beschleunigung des Fahrzeugs an die berechnete Zielgeschwindigkeit an. Ist der Abstand zu gering, wird eine Notbremsung aktiviert. Bei einer Zielgeschwindigkeit von null wird sofort gebremst. Bei niedriger Geschwindigkeit wird der Integralfehler reduziert, um langsames Rollen zu vermeiden, und eine negative Beschleunigung wird vermieden, um ein Rückwärtsfahren zu verhindern. Die Beschleunigung bleibt in einem sicheren Bereich.
+
+4.personale Gefühle
+Zu Beginn des Experiments war ich sehr nervös. Obwohl ich bereits Kurse in Computer Vision und automatischer Steuerung gelernt hatte, hatte ich noch nie ein so komplexes Projekt selbst durchgeführt. Jeden Tag machte ich mir Sorgen, dass ich die Aufgaben nicht bewältigen könnte. Kurz vor der Prüfung, aufgrund der großen Angst, entzündeten sich meine Weisheitszähne, und ich litt eine ganze Woche unter Schmerzen. Da nur noch drei Tage bis zur Prüfung blieben, wollte ich nicht zum Zahnarzt gehen, da dies meinen Lernfortschritt beeinträchtigen könnte, also nahm ich täglich Schmerzmittel.
+
+Zum Glück gab es viele relevante Informationen im Internet und durch die aktive Diskussion mit Kommilitonen begann ich, Freude an diesem Experiment zu finden und meine Angst vor der Prüfung abzubauen. Nach vielen Versuchen konnte ich das gesamte Experiment schließlich erfolgreich abschließen. Ich fühlte mich sehr glücklich und erfüllt und werde in Zukunft keine Angst oder Nervosität mehr bei ähnlichen Projekten haben.

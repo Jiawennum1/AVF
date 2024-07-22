@@ -1,0 +1,6 @@
+0.036那个模块是 float * float。搜multiply
+绿到紫是float to string
+两个split的方框记得填写 Steering value和Throttle value   append也是
+tronis socket是get tronis socket, target会自动出现
+搜Queue Data move的时候记得把context sensitive关掉(搜索时右上角小方框) 并且选tronis socket分类下的 不是multi的那个
+encode socket data选那个tronis model分类下的
