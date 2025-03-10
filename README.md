@@ -1,4 +1,5 @@
 Lane Detection
+
 Region Detection
 The first step involves cropping the region of interest (ROI) from the camera's image, focusing on the area above the hood and adjacent to both lanes, using cv::fillpoly for drawing and cv::bitwise_and() for cropping.
 
